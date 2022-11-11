@@ -230,7 +230,7 @@ void open_door(int elevator){
 
 void close_door(int elevator){
     elevators_status(elevator);
-    printf("Closing elevator %d on floor %d.\n", elevator, elevators[elevator].floor);
+    printf("Closing elevator %d on floor %d.It has %d user(s) in the elevator.\n", elevator, elevators[elevator].floor, elevators[elevator].users);
     elevators[elevator].open = 0;
     // Takes 1 second for elevator to close the door
     sleep(1);
@@ -295,9 +295,10 @@ void *start_user(void *arg)
     struct user *p = &users[user];
     printf("\n\nStarting user %lu thread\n", user);
     (*p).from_floor = random() % FLOORS;
-    (*p).in_elevator = -1;
     (*p).id = user; 
     int trips = TRIPS;
+    (*p).in_elevator = -1;
+
     
     while (!flag && trips-- > 0)
     {  
@@ -314,24 +315,26 @@ void *start_user(void *arg)
     }
 }
 
-int main(int argc, char *argv[]){  
+int main(int argc, char *argv[]){
+
 
         printf("\nThe Destination of all the elevator Users(10 in total) is entered as an array.");
         printf("\nTheir from floor/ current locations are randomly chosen by the program."
         "\nSeparate the array inputs with a space e.g array[Destination] = 1 2 3 4 5 6 7 and so on."
-        "\nInput the 10 Users Requests(number between 0 & 7):");
+        "\nInput the 10 Users Requests(number between 0 & 7) and then press enter:");
         // Users Destination input values e.g 1 2 3 4 5 6 7 1 2 3
         for(int i = 0; i < userS; i++){
             scanf("%d", &arr[i]);
         }
 
+
         // Populates the destination variable: to_floor with users input array values.
-        for(int i=0; i < userS;i++){
-
-            users[i].to_floor= arr[i];
+        for(int i=0; i < userS;i++){        
+        users[i].to_floor = arr[i];
         }
+        
 
-            dispatcher();
+        dispatcher();
 
         // Creates users threads
             pthread_t users[userS];
@@ -358,4 +361,3 @@ int main(int argc, char *argv[]){
      
     return 0;
 }
-
