@@ -23,8 +23,7 @@ new functionality such as  inputting users destinations, randomly selecting the 
           User 1 requesting an elevator to floor 2,\
           User 2 requesting an elevator to floor 3,\
           User 3 requesting an elevator to floor 4,\
-          User n requesting an elevator to floor L,\
-          
+          User n requesting an elevator to floor L,\ 
           And so on,\
           Ground Floor = 0, and the other floors are numbered 1 to 7. In total, there are 8 floors in the building.\
          
